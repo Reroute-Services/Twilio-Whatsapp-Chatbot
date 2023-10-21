@@ -27,30 +27,34 @@ def sendWhatsappMsg(to_number, from_number, body):
     
     print("Whatsapp Message Chased!:",message.sid)
 
+def get_send_chatbot_response(sender_id, reciever_id, message_body):
+    response_msg = chatbot.conversation_handler(sender_id, message_body)
+    sendWhatsappMsg(sender_id, reciever_id, response_msg)
+
 @app.post("/whatsapp")
 @app.get("/whatsapp")
 async def whatsapp(request : Request, background_tasks: BackgroundTasks):
     request_form = await request.form()
 
     print("""---------------------------------------------
-          Whatsapp Message Recieved!
-          Message SID: {}
-          Sender ID: {}
-          Sender Name: {}
-          Reciever ID: {}
-          Message Length: {}
-          Message Body: {}
-          ---------------------------------------------""".format(
+    Whatsapp Message Recieved!
+    Message SID: {}
+    Sender ID: {}
+    Sender Name: {}
+    Reciever ID: {}
+    Message Length: {}
+    Message Body: {}
+---------------------------------------------""".format(
         request_form["SmsSid"],
         request_form["From"],
         request_form["ProfileName"],
         request_form["To"],
         len(request_form["Body"]),
         request_form["Body"]))
-    
+
     resp = MessagingResponse()
 
-    background_tasks.add_task(sendWhatsappMsg, request_form["From"], request_form["To"], request_form["Body"])
+    background_tasks.add_task(get_send_chatbot_response, request_form["From"], request_form["To"], request_form["Body"])
 
     # resp.message(response_msg)
     # resp.message("response_msg")
