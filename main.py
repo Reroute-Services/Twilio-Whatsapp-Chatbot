@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Request
+from fastapi import FastAPI, Request, BackgroundTasks
 import uvicorn
 from twilio.twiml.voice_response import VoiceResponse
 from twilio.twiml.messaging_response import MessagingResponse
@@ -29,29 +29,29 @@ def sendWhatsappMsg(to_number, from_number, body):
 
 @app.post("/whatsapp")
 @app.get("/whatsapp")
-def whatsapp(request : Request):
-    start_time = time.time()
-
+async def whatsapp(request : Request, background_tasks: BackgroundTasks):
+    request_json = await request.json()
     # from_no = request.form['From']
     # to_number = request.form['To']
     # message_body = request.form['Body']
-    # print("---------------------------------------------\nWhatsapp Message Recieved!\n", request.values())
-    print("-----------------\n",request.json())
+    print("---------------------------------------------\nWhatsapp Message Recieved!\n", request_json)
 
     # response_msg = chatbot.conversation_handler(from_no, message_body)
     
     resp = MessagingResponse()
 
-    # resp.message(response_msg)
-    resp.message("response_msg")
-    
-    total_time = time.time() - start_time
-    print("Total Response Time:", total_time)
+    # background_tasks.add_task(session_manager.expirator)
 
-    if total_time >= 14:
-        print("Timeout!!!!")
-        # LOST_MESSAGES[from_no] = {"input":message_body, "response":resp}
-        # sendWhatsappMsg(from_no, to_number, response_msg)
+    # resp.message(response_msg)
+    # resp.message("response_msg")
+    
+    # total_time = time.time() - start_time
+    # print("Total Response Time:", total_time)
+
+    # if total_time >= 14:
+    #     print("Timeout!!!!")
+    #     # LOST_MESSAGES[from_no] = {"input":message_body, "response":resp}
+    #     # sendWhatsappMsg(from_no, to_number, response_msg)
 
     return str(resp)
 
