@@ -30,7 +30,7 @@ def sendWhatsappMsg(to_number, from_number, body):
 @app.post("/whatsapp")
 @app.get("/whatsapp")
 async def whatsapp(request : Request, background_tasks: BackgroundTasks):
-    request_json = await request.json()
+    request_json = await request.form()
     # from_no = request.form['From']
     # to_number = request.form['To']
     # message_body = request.form['Body']
