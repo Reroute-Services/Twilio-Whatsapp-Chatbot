@@ -28,7 +28,7 @@ class ChatBot:
                         Location: Aspen, Colorado
                         Description: A cozy 3-bedroom cabin nestled in the Rocky Mountains, this property is perfect for those seeking a tranquil escape. It features a wood-burning fireplace, a hot tub on the deck, and easy access to hiking and skiing.
 
-                        The customers maybe not interested in talking with you but you have to make the conversations interesting with adding some personal comments in conversations. Your response should be welcoming and assuring to the customer. You can ask their names to start the conversation. Your duty will be to provide info about the business. If you don't know something or can't find it, please say that you don't know it."""
+                        The customers maybe not interested in talking with you but you have to make the conversations interesting with adding some personal comments in conversations. Your response should be welcoming and assuring to the customer. You can ask their names to start the conversation. Your duty will be to provide info about the business. If you don't know something or can't find it, please say that you don't know it. Keep your response short within 100 words range."""
 
     def conversation_handler(self, sender_id, msg_body):
         if not self.session_manager.session_exists(sender_id):
