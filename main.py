@@ -32,16 +32,17 @@ def sendWhatsappMsg(to_number, from_number, body):
 def whatsapp(request : Request):
     start_time = time.time()
 
-    from_no = request.form['From']
-    to_number = request.form['To']
-    message_body = request.form['Body']
+    # from_no = request.form['From']
+    # to_number = request.form['To']
+    # message_body = request.form['Body']
     print("---------------------------------------------\nWhatsapp Message Recieved!\n", request.values)
 
-    response_msg = chatbot.conversation_handler(from_no, message_body)
+    # response_msg = chatbot.conversation_handler(from_no, message_body)
     
     resp = MessagingResponse()
 
-    resp.message(response_msg)
+    # resp.message(response_msg)
+    resp.message("response_msg")
     
     total_time = time.time() - start_time
     print("Total Response Time:", total_time)
@@ -49,7 +50,7 @@ def whatsapp(request : Request):
     if total_time >= 14:
         print("Timeout!!!!")
         # LOST_MESSAGES[from_no] = {"input":message_body, "response":resp}
-        sendWhatsappMsg(from_no, to_number, response_msg)
+        # sendWhatsappMsg(from_no, to_number, response_msg)
 
     return str(resp)
 
