@@ -35,8 +35,8 @@ def whatsapp(request : Request):
     # from_no = request.form['From']
     # to_number = request.form['To']
     # message_body = request.form['Body']
-    print("---------------------------------------------\nWhatsapp Message Recieved!\n", request.values())
-    print("-----------------\n",request.form())
+    # print("---------------------------------------------\nWhatsapp Message Recieved!\n", request.values())
+    print("-----------------\n",request.json())
 
     # response_msg = chatbot.conversation_handler(from_no, message_body)
     
