@@ -12,14 +12,13 @@ app = FastAPI()
 chatbot = ChatBot()
 
 def sendWhatsappMsg(to_number, from_number, body):
-    # Find your Account SID and Auth Token at twilio.com/console
-    # and set the environment variables. See http://twil.io/secure
     account_sid = os.environ['TWILIO_ACCOUNT_SID']
     auth_token = os.environ['TWILIO_AUTH_TOKEN']
     client = Client(account_sid, auth_token)
 
     message = client.messages \
         .create(
+            content_sid='HX3058904f454d7ef1bb2ff37b9f203702',
             from_=from_number,
             body=body,
             to=to_number
@@ -56,49 +55,7 @@ async def whatsapp(request : Request, background_tasks: BackgroundTasks):
 
     background_tasks.add_task(get_send_chatbot_response, request_form["From"], request_form["To"], request_form["Body"])
 
-    # resp.message(response_msg)
-    # resp.message("response_msg")
-    
-    # total_time = time.time() - start_time
-    # print("Total Response Time:", total_time)
-
-    # if total_time >= 14:
-    #     print("Timeout!!!!")
-    #     # LOST_MESSAGES[from_no] = {"input":message_body, "response":resp}
-    #     # sendWhatsappMsg(from_no, to_number, response_msg)
-
     return str(resp)
-
-
-# @app.route("/whatsapp", methods=['GET', 'POST'])
-# def whatsapp():
-#     start = time.time()
-
-#     """Respond to incoming calls with a simple text message."""
-#     # Start our TwiML response
-#     print("Whatsapp Message: ", request.values)
-#     from_no = request.form['From']
-#     to_number = request.form['To']
-#     message_body = request.form['Body']
-
-#     # response_msg = chat_session_handler(from_no, to_number, message_body=message_body)
-#     response_msg = chatbot.conversation_handler(from_no, message_body)
-
-#     resp = MessagingResponse()
-
-#     # Add a message
-#     # resp.message("The Robots are coming! Head for the hills!")
-#     resp.message(response_msg)
-    
-#     end = time.time()
-#     total_time = end-start
-#     print("Time:", total_time)
-#     if total_time >= 14:
-#         print("Timeout!!!!")
-#         # LOST_MESSAGES[from_no] = {"input":message_body, "response":resp}
-#         sendWhatsappMsg(from_no, to_number, response_msg)
-
-#     return str(resp)
 
 
 if __name__ == '__main__':

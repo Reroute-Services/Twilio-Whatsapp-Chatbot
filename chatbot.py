@@ -40,11 +40,13 @@ class ChatBot:
         else:
             return self.chat(self.session_manager.get_session_context(sender_id), msg_body)
 
-    def conversation_agent_generator(self):
+    def conversation_agent_generator(self, system_msg=None):
+        if system_msg == None:
+            system_msg = self.system_msg
         llm = ChatOpenAI(temperature=self.llm_temperature)
         prompt = ChatPromptTemplate(
             messages=[
-                SystemMessagePromptTemplate.from_template(self.system_msg),
+                SystemMessagePromptTemplate.from_template(system_msg),
                 # The `variable_name` here is what must align with memory
                 MessagesPlaceholder(variable_name="history"),
                 HumanMessagePromptTemplate.from_template("{input}")
